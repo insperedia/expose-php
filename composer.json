@@ -1,0 +1,19 @@
+{
+  "name": "insperedia/exppose-php",
+  "description": "Expose mocking library",
+  "keywords": ["testing", "mock", "mocking", "tdd", "tac"],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Insperedia.com",
+      "email": "oleg@insperedia.com",
+      "homepage": "Insperedia.com"
+    }
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "Insperedia\\Expose\\": "src/"
+    }
+  }
+}
