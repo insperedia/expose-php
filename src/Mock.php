@@ -1,7 +1,14 @@
 <?php
 /**
- * Date: 19.04.2016
- * Time: 17:24
+ Usage
+
+    $mock = new \Insperedia\Expose\Mock('\app\classes\TestClass');
+    $mock->listenMethod('internalMethod', 'return false;');
+
+    $mockedTestClass = $mock->createClass();
+    $mockedTestClass->externalMethod("someValue");
+
+    $this->assertEquals(1, $mockedTestClass->getCallCount('requestData'));
  */
 
 namespace Insperedia\Expose;
