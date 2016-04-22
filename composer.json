@@ -1,6 +1,6 @@
 {
   "name": "insperedia/exppose-php",
-  "description": "Expose mocking library",
+  "description": "Expose is a mocking library allows to create mocks, stubs and expose internal methods.",
   "keywords": ["testing", "mock", "mocking", "tdd", "tac"],
   "license": "BSD-3-Clause",
   "authors": [
