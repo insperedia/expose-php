@@ -13,5 +13,5 @@ Unique feature is dymamic injection of test support code into target class. This
     $mockedTestClass = $mock->createClass();
     $mockedTestClass->externalMethod("someValue");
 
-    $this->assertEquals(1, $mockedTestClass->getCallCount('requestData'));
+    $this->assertEquals(1, $mockedTestClass->getCallCount('internalMethod'));
 ```
