@@ -19,6 +19,9 @@ class Mock
             $methods .= $this->generateMethod($methodName, $methodBody, $this->className );
         }
         $randomClassName = $this->generateRandomString();
+        $constructorParamString = $this->constructorParamsString(func_get_args());
+
+        
 
         $instance = null;
         $classCode = '
@@ -36,23 +39,32 @@ class Mock
                 }
             }
 
-            $instance = new '.$randomClassName.'();
+            $instance = new '.$randomClassName.'('.$constructorParamString.');
         ';
 
         eval($classCode);
+
         $this->instance = $instance;
         return $instance;
 
     }
 
+    private function constructorParamsString($params) {
+        $params = array_map(function($value) {
+                return '"'.$value.'"';
+        }, $params);
+        return implode(', ', $params);
+    }
+
     private function generateMethod($methodName, $methodBody, $className) {
         $method = new \ReflectionMethod($className, $methodName);
+
         $parameters = $method->getParameters();
         $parameterNames = [];
         foreach ($parameters as $parameter) {
             $parameterNames[] = '$'.$parameter->getName();
         }
-        $hasMethodBody = (bool)$methodBody;
+        $hasMethodBody = $methodBody ? 'true' : 'false';
         $methodName = $method->getName();
         $parameters = implode(',', $parameterNames);
         $methodString = 'public function '.$methodName.'('.$parameters.') {
