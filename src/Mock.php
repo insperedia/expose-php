@@ -13,7 +13,7 @@ class Mock
         $this->className = $className;
     }
 
-    public function createClass() {
+    public function createClass($construct = true) {
         $methods = '';
         foreach ($this->listenedMethods as $methodName => $methodBody) {
             $methods .= $this->generateMethod($methodName, $methodBody, $this->className );
@@ -38,14 +38,20 @@ class Mock
                     }
                 }
             }
-
-            $instance = new '.$randomClassName.'('.$constructorParamString.');
+          
         ';
+        $constructor = '  $instance = new '.$randomClassName.'('.$constructorParamString.');';
 
         eval($classCode);
 
-        $this->instance = $instance;
-        return $instance;
+        if ($construct) {
+            eval($constructor);
+            $this->instance = $instance;
+
+            return $instance;
+        } else {
+            return $randomClassName;
+        }
 
     }
 
@@ -89,8 +95,8 @@ class Mock
         $this->listenedMethods[$methodName] = $methodBody;
     }
 
-    public function getCallCount($methodName) {
-        return $this->instance->getCallcount($methodName);
+    public function getCallCount($methodName, $instance) {
+        return $instance->getCallcount($methodName);
     }
 
     private function generateRandomString($length = 20) {
