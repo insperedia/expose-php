@@ -13,15 +13,12 @@ class Mock
         $this->className = $className;
     }
 
-    public function createClass($construct = true) {
+    public function createClass() {
         $methods = '';
         foreach ($this->listenedMethods as $methodName => $methodBody) {
             $methods .= $this->generateMethod($methodName, $methodBody, $this->className );
         }
         $randomClassName = $this->generateRandomString();
-        $constructorParamString = $this->constructorParamsString(func_get_args());
-
-        
 
         $instance = null;
         $classCode = '
@@ -40,19 +37,19 @@ class Mock
             }
           
         ';
-        $constructor = '  $instance = new '.$randomClassName.'('.$constructorParamString.');';
 
         eval($classCode);
 
-        if ($construct) {
-            eval($constructor);
-            $this->instance = $instance;
+        return $randomClassName;
+    }
 
-            return $instance;
-        } else {
-            return $randomClassName;
-        }
-
+    public function instanciate() {
+        $className = $this->createClass();
+        $constructorParamString = $this->constructorParamsString(func_get_args());
+        $instance = null;
+        $constructor = '  $instance = new '.$className.'('.$constructorParamString.');';
+        eval($constructor);
+        return $instance;
     }
 
     private function constructorParamsString($params) {
