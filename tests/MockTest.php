@@ -22,7 +22,7 @@ class MockTest extends PHPUnit_Framework_TestCase
     function testInsanciate() {
         $mockTest1 = new \Insperedia\Expose\Mock('test1');
         $mockTest1->listenMethod('sum');
-        $test1 = $mockTest1->instanciate(1,2);
+        $test1 = $mockTest1->instantiate(1,2);
         $this->assertEquals(3, $test1->sum());
         $this->assertEquals(1, $mockTest1->getCallCount('sum',$test1 ));
     }

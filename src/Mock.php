@@ -43,7 +43,7 @@ class Mock
         return $randomClassName;
     }
 
-    public function instanciate() {
+    public function instantiate() {
         $className = $this->createClass();
         $constructorParamString = $this->constructorParamsString(func_get_args());
         $instance = null;
